@@ -1,34 +1,36 @@
 package com.reservationapp.controller;
 
+import com.reservationapp.entity.Route;
 import com.reservationapp.payload.BusDto;
+import com.reservationapp.payload.RouteDto;
+import com.reservationapp.payload.SubRouteDto;
+import com.reservationapp.repository.RouteRepository;
 import com.reservationapp.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/bus/api")
+@RequestMapping("/bus/v1/api")
 public class BusController {
 
     @Autowired
     private BusService busService;
+    @Autowired
+    private RouteRepository routeRepository;
 
     @PostMapping
     public ResponseEntity<?> createBus(@RequestBody BusDto busDto){
 
 
-    try{
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        Date fromDate =  formatter.parse(busDto.getFromDate());
-        Date toDate = formatter.parse(busDto.getToDate());
+    try{
         BusDto busDto1 = busService.createBus(busDto);
 
-        return new ResponseEntity<>( "Bus registered successfully" + busDto1, HttpStatus.CREATED);
+        return new ResponseEntity<>( "Bus registered successfully" +"BUS REGISTERED", HttpStatus.CREATED);
     }
 
     catch(Exception e)
@@ -42,6 +44,18 @@ public class BusController {
 
         BusDto busById = busService.getBusById(busId);
         return new ResponseEntity<>(busById,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/route")
+    public List<Route> searchBusses(
+            @RequestParam("fromLocation") String fromLocation,
+            @RequestParam("toLocation") String toLocation,
+            @RequestParam("fromDate") String fromDate
+
+    ){
+
+      return routeRepository.findByFromLocationAndToLocationAndFromDate(fromLocation, toLocation, fromDate);
 
     }
 }

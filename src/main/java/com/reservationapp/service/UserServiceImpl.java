@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
         userRegistrationDto.setName(save.getName());
         userRegistrationDto.setId(save.getId());
         userRegistrationDto.setEmail(save.getEmail());
+        userRegistrationDto.setProfilePicture(save.getProfilePicture());
         return userRegistrationDto;
     }
 
