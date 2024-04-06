@@ -29,5 +29,4 @@ public class Route {
     @JoinColumn(name = "bus_bus_id")
     private Bus bus;
 
-
 }

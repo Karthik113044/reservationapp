@@ -15,8 +15,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
-@Configuration
+
 @Service
 public class BusService implements BusServiceImpl {
 
@@ -27,10 +28,7 @@ public class BusService implements BusServiceImpl {
     @Autowired
     private SubRouteRepository subRouteRepository;
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+
 
     @Transactional
     public BusDto createBus(BusDto busDto) {
@@ -94,7 +92,7 @@ public class BusService implements BusServiceImpl {
     }
     private BusDto mapToDto(Bus bus) {
 
-       BusDto busDto = modelMapper().map(bus, BusDto.class);
+        BusDto busDto = new ModelMapper().map(bus, BusDto.class);
 
         return busDto;
     }
