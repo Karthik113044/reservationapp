@@ -1,8 +1,7 @@
 package com.reservationapp.entity;
 
-import com.reservationapp.payload.RouteDto;
-import com.reservationapp.payload.SubRouteDto;
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
